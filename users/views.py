@@ -3,7 +3,8 @@ from rest_framework.filters import OrderingFilter, SearchFilter
 from rest_framework.viewsets import ModelViewSet
 
 from users.models import Payment, User
-from users.serializers import PaymentSerializer, UserSerializer, UserDetailSerializer
+from users.serializers import (PaymentSerializer, UserDetailSerializer,
+                               UserSerializer)
 
 
 class PaymentViewSet(ModelViewSet):

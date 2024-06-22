@@ -1,15 +1,15 @@
-from rest_framework.routers import SimpleRouter, DefaultRouter
+from rest_framework.routers import DefaultRouter, SimpleRouter
 
 from users.apps import UsersConfig
-from users.views import UserViewSet, PaymentViewSet
+from users.views import PaymentViewSet, UserViewSet
 
 app_name = UsersConfig.name
 
 router1 = SimpleRouter()
-router1.register(r'payment', PaymentViewSet, basename='payment')
+router1.register(r"payment", PaymentViewSet, basename="payment")
 
 router2 = DefaultRouter()
-router2.register(r'users', UserViewSet, basename='user')
+router2.register(r"users", UserViewSet, basename="user")
 
 urlpatterns = []
 urlpatterns += router1.urls
