@@ -1,0 +1,194 @@
+[
+  {
+    "model": "users.user",
+    "pk": 1,
+    "fields": {
+      "password": "",
+      "last_login": null,
+      "is_superuser": false,
+      "first_name": "",
+      "last_name": "",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2024-06-19T19:36:08.574Z",
+      "email": "example@sky.pro",
+      "phone": null,
+      "city": null,
+      "avatar": "",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 2,
+    "fields": {
+      "password": "pbkdf2_sha256$600000$JTYr5hzVwyK6lqEWqh12lX$W1ftI80sEmH53jTIMh56uxY5EoE9RdTgpmB1iT2voOU=",
+      "last_login": null,
+      "is_superuser": false,
+      "first_name": "",
+      "last_name": "",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2024-06-22T12:42:37.287Z",
+      "email": "ivanov@sky.pro",
+      "phone": null,
+      "city": null,
+      "avatar": "",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 3,
+    "fields": {
+      "password": "pbkdf2_sha256$600000$DFZPuj1JGnNRKoLb4daPsm$Rn7IT8ZtZvufyCR+XgM5mNe9DadXhmjla/HZmqNXBe8=",
+      "last_login": null,
+      "is_superuser": false,
+      "first_name": "",
+      "last_name": "",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2024-06-22T12:46:32.119Z",
+      "email": "petrov@sky.pro",
+      "phone": null,
+      "city": null,
+      "avatar": "",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 4,
+    "fields": {
+      "password": "pbkdf2_sha256$600000$Me61qU0fCuDzKDzRcy906x$Np4OMmKVHbW4sCeJ97ZxJYjc9MOWRsCfAtXv9tAbTmg=",
+      "last_login": null,
+      "is_superuser": false,
+      "first_name": "",
+      "last_name": "",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2024-06-22T12:47:00.346Z",
+      "email": "stepanov@sky.pro",
+      "phone": null,
+      "city": null,
+      "avatar": "",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 5,
+    "fields": {
+      "password": "pbkdf2_sha256$600000$8DP0Tw5ChX9vGI2hT0yNM2$Uiwzgz1mPmLNkG5d2gVTg6tj4DHGm0K/eL4bRn2G3Dw=",
+      "last_login": null,
+      "is_superuser": false,
+      "first_name": "",
+      "last_name": "",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2024-06-22T12:48:38.295Z",
+      "email": "antonov@sky.pro",
+      "phone": null,
+      "city": null,
+      "avatar": "",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 6,
+    "fields": {
+      "password": "pbkdf2_sha256$600000$8tI1kAVjz7SenBM5dB5OB8$18/EI+0wuzdoU6zQNbPMUYooI4O4T9zXjG5p8eMKzJo=",
+      "last_login": "2024-06-22T12:52:22.518Z",
+      "is_superuser": true,
+      "first_name": "",
+      "last_name": "",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2024-06-22T12:51:43.198Z",
+      "email": "admin@example.com",
+      "phone": null,
+      "city": null,
+      "avatar": "",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "users.payment",
+    "pk": 1,
+    "fields": {
+      "user": 1,
+      "paid_at": "2020-01-01T00:00:00Z",
+      "course": 1,
+      "lesson": null,
+      "amount": 50000,
+      "payment_method": "CASH"
+    }
+  },
+  {
+    "model": "users.payment",
+    "pk": 2,
+    "fields": {
+      "user": 2,
+      "paid_at": "2020-02-01T00:00:00Z",
+      "course": 2,
+      "lesson": null,
+      "amount": 55000,
+      "payment_method": "TRANSFER"
+    }
+  },
+  {
+    "model": "users.payment",
+    "pk": 3,
+    "fields": {
+      "user": 3,
+      "paid_at": "2020-03-01T00:00:00Z",
+      "course": 1,
+      "lesson": null,
+      "amount": 55000,
+      "payment_method": "CASH"
+    }
+  },
+  {
+    "model": "users.payment",
+    "pk": 4,
+    "fields": {
+      "user": 4,
+      "paid_at": "2020-04-01T00:00:00Z",
+      "course": null,
+      "lesson": 1,
+      "amount": 1000,
+      "payment_method": "CASH"
+    }
+  },
+  {
+    "model": "users.payment",
+    "pk": 5,
+    "fields": {
+      "user": 4,
+      "paid_at": "2020-04-10T00:00:00Z",
+      "course": null,
+      "lesson": 2,
+      "amount": 1000,
+      "payment_method": "CASH"
+    }
+  },
+  {
+    "model": "users.payment",
+    "pk": 6,
+    "fields": {
+      "user": 1,
+      "paid_at": "2020-06-01T00:00:00Z",
+      "course": 3,
+      "lesson": null,
+      "amount": 55000,
+      "payment_method": "TRANSFER"
+    }
+  }
+]
