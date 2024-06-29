@@ -1,7 +1,9 @@
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework.filters import OrderingFilter, SearchFilter
-from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveAPIView, UpdateAPIView, DestroyAPIView
-from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.filters import OrderingFilter
+from rest_framework.generics import (CreateAPIView, DestroyAPIView,
+                                     ListAPIView, RetrieveAPIView,
+                                     UpdateAPIView)
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
 
 from users.models import Payment, User
@@ -60,4 +62,3 @@ class UserDestroyAPIView(DestroyAPIView):
     serializer_class = UserSerializer
     queryset = User.objects.all()
     permission_classes = (IsAuthenticated, IsUser)
-
