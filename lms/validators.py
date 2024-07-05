@@ -10,4 +10,6 @@ class VideoLinkValidator:
         tmp = dict(value).get(self.field)
         if tmp:
             if not tmp.startswith("https://youtube.com/"):
-                raise ValidationError("Некорректная ссылка. Разрешены только ссылки на Youtube.")
+                raise ValidationError(
+                    "Некорректная ссылка. Разрешены только ссылки на Youtube."
+                )

@@ -38,7 +38,9 @@ class Lesson(models.Model):
 
 
 class Subscription(models.Model):
-    user = models.ForeignKey("users.User", on_delete=models.CASCADE, verbose_name="Пользователь")
+    user = models.ForeignKey(
+        "users.User", on_delete=models.CASCADE, verbose_name="Пользователь"
+    )
     course = models.ForeignKey(Course, on_delete=models.CASCADE, verbose_name="Курс")
 
     def __str__(self):
@@ -47,5 +49,3 @@ class Subscription(models.Model):
     class Meta:
         verbose_name = "Подписка"
         verbose_name_plural = "Подписки"
-
-
