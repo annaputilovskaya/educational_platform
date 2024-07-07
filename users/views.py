@@ -10,6 +10,7 @@ from users.models import Payment, User
 from users.permissions import IsOwner, IsUser
 from users.serializers import (PaymentSerializer, UserDetailSerializer,
                                UserSerializer)
+from users.services import create_stripe_product, create_stripe_price, create_stripe_session, choose_material
 
 
 class PaymentViewSet(ModelViewSet):
@@ -25,6 +26,23 @@ class PaymentViewSet(ModelViewSet):
         elif self.action in ["update", "retrieve", "destroy"]:
             self.permission_classes = (IsOwner, IsAuthenticated)
         return super().get_permissions()
+
+    def perform_create(self, serializer):
+        payment = serializer.save(user=self.request.user)
+        material = choose_material(payment)
+        if payment.payment_method == "TRANSFER":
+
+            # Создание платежа в страйпе
+            product = create_stripe_product(material)
+            price = create_stripe_price(payment.amount, product)
+            session_id, payment_link = create_stripe_session(price)
+
+            payment.session_id = session_id
+            payment.link = payment_link
+            payment.save()
+        else:
+            # Оплата наличными
+            payment.save()
 
 
 class UserCreateAPIView(CreateAPIView):
