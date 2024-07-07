@@ -10,7 +10,8 @@ from users.models import Payment, User
 from users.permissions import IsOwner, IsUser
 from users.serializers import (PaymentSerializer, UserDetailSerializer,
                                UserSerializer)
-from users.services import create_stripe_product, create_stripe_price, create_stripe_session, choose_material
+from users.services import (choose_material, create_stripe_price,
+                            create_stripe_product, create_stripe_session)
 
 
 class PaymentViewSet(ModelViewSet):
