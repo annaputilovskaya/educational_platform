@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.shortcuts import get_object_or_404
 from rest_framework.generics import (CreateAPIView, DestroyAPIView,
                                      ListAPIView, RetrieveAPIView,
@@ -6,11 +8,14 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 
+from config.settings import TIME_ZONE
 from lms.models import Course, Lesson, Subscription
 from lms.paginators import CoursePaginator, LessonPaginator
 from lms.permissions import IsModerator, IsOwner
 from lms.serializers import (CourseSerializer, LessonSerializer,
                              SubscriptionSerializer)
+from lms.tasks import send_mail_about_course_updating
+from users.models import User
 
 
 class CourseViewSet(ModelViewSet):
@@ -29,6 +34,23 @@ class CourseViewSet(ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
+
+    def update(self, request, pk, *args, **kwargs):
+        course = Course.objects.get(pk=pk)
+        subscriptions = Subscription.objects.filter(course=pk)
+        users_list = [subscription.user.id for subscription in subscriptions]
+        email_list = []
+        for user in users_list:
+            email_list.append(User.objects.get(id=user).email)
+        send_mail_about_course_updating.delay(email_list, course.title)
+        # print(datetime.now(TIME_ZONE))
+        # print(course.updated_at)
+        # if (datetime.now(TIME_ZONE) - course.updated_at).hours > 4:
+        #     send_mail_about_course_updating.delay(email_list, course.title)
+        #     print("Отправлено письмо об обновлении курса")
+        # else:
+        #     print("Курс недавно обновлялся")
+        return super().update(request, *args, **kwargs)
 
 
 class LessonCreateAPIView(CreateAPIView):
