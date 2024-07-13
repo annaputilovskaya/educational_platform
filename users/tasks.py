@@ -8,10 +8,14 @@ from users.models import User
 def check_last_login():
     """
     Проверяет дату последнего входа пользователя и
-    блокирует пользователя в случае отсутсвия более 1 месяца
+    блокирует пользователя в случае отсутсвия активности более 1 месяца.
     """
     tmp_date = timezone.now() - timezone.timedelta(days=30)
-    users = User.objects.filter(is_active=True).exclude(is_superuser=True).filter(last_login__lt=tmp_date)
+    users = (
+        User.objects.filter(is_active=True)
+        .exclude(is_superuser=True)
+        .filter(last_login__lt=tmp_date)
+    )
     for user in users:
         user.is_active = False
         user.save()
