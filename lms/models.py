@@ -4,11 +4,18 @@ NULLABLE = {"blank": True, "null": True}
 
 
 class Course(models.Model):
+    """
+    Модель курса.
+    """
+
     title = models.CharField(max_length=255, verbose_name="Название курса")
     preview = models.ImageField(upload_to="lms/course", **NULLABLE)
     description = models.TextField(verbose_name="Описание курса", **NULLABLE)
     owner = models.ForeignKey(
         "users.User", on_delete=models.CASCADE, verbose_name="Владелец", **NULLABLE
+    )
+    updated_at = models.DateTimeField(
+        auto_now=True, **NULLABLE, verbose_name="Дата последнего обновления"
     )
 
     class Meta:
@@ -20,6 +27,10 @@ class Course(models.Model):
 
 
 class Lesson(models.Model):
+    """
+    Модель урока.
+    """
+
     title = models.CharField(max_length=255, verbose_name="Название урока")
     description = models.TextField(verbose_name="Описание урока", **NULLABLE)
     preview = models.ImageField(upload_to="lms/lesson", **NULLABLE)
@@ -38,6 +49,10 @@ class Lesson(models.Model):
 
 
 class Subscription(models.Model):
+    """
+    Модель подписки на информирование об обновлении курса.
+    """
+
     user = models.ForeignKey(
         "users.User", on_delete=models.CASCADE, verbose_name="Пользователь"
     )

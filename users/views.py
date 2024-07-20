@@ -15,6 +15,10 @@ from users.services import (choose_material, create_stripe_price,
 
 
 class PaymentViewSet(ModelViewSet):
+    """
+    Контроллер платежа.
+    """
+
     queryset = Payment.objects.all()
     serializer_class = PaymentSerializer
     filter_backends = [DjangoFilterBackend, OrderingFilter]
@@ -22,6 +26,9 @@ class PaymentViewSet(ModelViewSet):
     ordering_fields = ("paid_at",)
 
     def get_permissions(self):
+        """
+        Получает права доступа для разных действий.
+        """
         if self.action in ["create", "list"]:
             self.permission_classes = (IsAuthenticated,)
         elif self.action in ["update", "retrieve", "destroy"]:
@@ -29,11 +36,14 @@ class PaymentViewSet(ModelViewSet):
         return super().get_permissions()
 
     def perform_create(self, serializer):
+        """
+        Сохраняет платеж и создает сессию в страйпе для безналичной оплаты.
+        """
         payment = serializer.save(user=self.request.user)
         material = choose_material(payment)
         if payment.payment_method == "TRANSFER":
 
-            # Создание платежа в страйпе
+            # Создание платежа в страйпе.
             product = create_stripe_product(material)
             price = create_stripe_price(payment.amount, product)
             session_id, payment_link = create_stripe_session(price)
@@ -42,11 +52,15 @@ class PaymentViewSet(ModelViewSet):
             payment.link = payment_link
             payment.save()
         else:
-            # Оплата наличными
+            # Оплата наличными.
             payment.save()
 
 
 class UserCreateAPIView(CreateAPIView):
+    """
+    Контроллер регистрации пользователя.
+    """
+
     serializer_class = UserDetailSerializer
     permission_classes = (AllowAny,)
 
@@ -57,27 +71,45 @@ class UserCreateAPIView(CreateAPIView):
 
 
 class UserListAPIView(ListAPIView):
+    """
+    Контроллер списка пользователей.
+    """
+
     serializer_class = UserSerializer
     queryset = User.objects.all()
 
 
 class UserRetrieveAPIView(RetrieveAPIView):
+    """
+    Контроллер детального просмотра пользователя.
+    """
+
     queryset = User.objects.all()
 
     def get_serializer_class(self):
-        print(self.get_object())
+        """
+        Проверяет, какой объем информации о пользователе может просматривать текущий пользователь.
+        """
         if self.request.user == self.get_object():
             return UserDetailSerializer
         return UserSerializer
 
 
 class UserUpdateAPIView(UpdateAPIView):
+    """
+    Контроллер изменения информации о пользователе.
+    """
+
     serializer_class = UserDetailSerializer
     queryset = User.objects.all()
     permission_classes = (IsAuthenticated, IsUser)
 
 
 class UserDestroyAPIView(DestroyAPIView):
+    """
+    Контроллер удаления пользователя.
+    """
+
     serializer_class = UserSerializer
     queryset = User.objects.all()
     permission_classes = (IsAuthenticated, IsUser)
