@@ -29,7 +29,7 @@ from users.models import User
     decorator=swagger_auto_schema(operation_description="Контроллер создания курса."),
 )
 @method_decorator(
-    name="delete",
+    name="destroy",
     decorator=swagger_auto_schema(operation_description="Контроллер удаления курса."),
 )
 class CourseViewSet(ModelViewSet):
